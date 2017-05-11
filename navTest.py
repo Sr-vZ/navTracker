@@ -1,5 +1,6 @@
 from selenium import webdriver
 from tqdm import tqdm
+import os
 
 import csv
 
@@ -18,10 +19,10 @@ data=preTextEl.text.split(";")
 with open('some.csv', 'w',newline="\n",encoding="utf-8") as f:
     writer = csv.writer(f,delimiter=";")
     writer.writerows([data])
-    for r in tqdm(sum(1 for row in writer),data.length):
-        print(r)
+    for r in tqdm(range(os.path.getsize("some.csv"))):
+        pass
     
     
 #writer.close
 driver.close
-#print (data)
+#print (len(data))
