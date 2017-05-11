@@ -1,5 +1,9 @@
 from selenium import webdriver
 from tqdm import tqdm
+import pandas as pd
+from io import StringIO
+from tqdm import tqdm
+
 import os
 
 import csv
@@ -17,12 +21,19 @@ data=preTextEl.text.split(";")
 #sbtn.click()
 #csvFile = open('example.csv', 'w', newline='')
 op_file="some.csv"
-with open(op_file, 'w',newline='\n',encoding="utf-8") as f:
+
+tqdm.pandas(tqdm,mininterval=1)
+
+df = pd.read_csv(StringIO(preTextEl.text),sep=";")
+df.to_csv('cleanedCSV.csv')
+'''
+with open(op_file, 'w',newline='\r',encoding="utf-8") as f:
     writer = csv.writer(f,delimiter=';')
     writer.writerows([data])
     for r in tqdm(range(os.path.getsize(op_file))):
         pass
-
+'''
+'''		
 my_file_name = "some.csv"
 cleaned_file = "cleansome.csv"
 remove_words = [";"]
@@ -32,7 +43,7 @@ with open(my_file_name, 'r', newline='') as infile, open(cleaned_file, 'w',newli
     for line in csv.reader(infile, delimiter=';'),tqdm(range(len(line))):
         if not any(remove_word in line for remove_word in remove_words):
             writer.writerow(line)
-    
+'''    
     
     
     
