@@ -20,12 +20,14 @@ data=preTextEl.text.split(";")
 #sbtn = driver.find_element_by_css_selector('button.gbqfba')
 #sbtn.click()
 #csvFile = open('example.csv', 'w', newline='')
-op_file="some.csv"
+op_file="cleanedCSV.csv"
 
 tqdm.pandas(tqdm,mininterval=1)
 
 df = pd.read_csv(StringIO(preTextEl.text),sep=";")
-df.to_csv('cleanedCSV.csv')
+df.to_csv(op_file,index=False)
+
+df.plot()
 '''
 with open(op_file, 'w',newline='\r',encoding="utf-8") as f:
     writer = csv.writer(f,delimiter=';')
