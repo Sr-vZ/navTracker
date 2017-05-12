@@ -27,7 +27,7 @@ tqdm.pandas(tqdm,mininterval=1)
 df = pd.read_csv(StringIO(preTextEl.text),sep=";")
 df.to_csv(op_file,index=False)
 
-df.plot()
+#df.plot()
 '''
 with open(op_file, 'w',newline='\r',encoding="utf-8") as f:
     writer = csv.writer(f,delimiter=';')
