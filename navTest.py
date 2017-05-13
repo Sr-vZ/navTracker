@@ -8,9 +8,10 @@ import os
 
 import csv
 
+phantomjsExe="C:/Users/608619925/Downloads/phantomjs-2.1.1-windows/phantomjs-2.1.1-windows/bin/phantomjs.exe"
 url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf=22&frmdt=01-Apr-2015&todt=30-Apr-2017"
 
-driver = webdriver.PhantomJS(executable_path='C:/Users/608619925/Downloads/phantomjs-2.1.1-windows/phantomjs-2.1.1-windows/bin/phantomjs.exe') # or add to your PATH
+driver = webdriver.PhantomJS(executable_path=phantomjsExe) # or add to your PATH
 #driver.set_window_size(1024, 768) # optional
 driver.get(url)
 preTextEl = driver.find_element_by_css_selector("pre")
