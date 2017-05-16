@@ -25,6 +25,8 @@ op_file="cleanedCSV.csv"
 tqdm.pandas(tqdm,mininterval=1)
 
 df = pd.read_csv(StringIO(preTextEl.text),sep=";")
+#df.drop('Repurchase Price',axis=1)
+df.drop('Sale Price',axis=1)
 df.to_csv(op_file,index=False)
 
 #df.plot()
