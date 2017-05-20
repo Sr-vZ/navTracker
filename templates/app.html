@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <title>Python Flask Bucket List App</title>
- 
- 
+
+
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
- 
+
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
- 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script>
-		window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')
-	</script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><script>
+    <script>
+        window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js')}}">\x3C/script>')
+    </script>
 
-<script charset="utf-8" type="text/javascript">
-$('document').ready(function(){
+    <script charset="utf-8" type="text/javascript">
+    
+        
+        
+        $('document').ready(function() {
+            $( "#datepicker1" ).datepicker();
+            $( "#datepicker2" ).datepicker();
 
-$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            $SCRIPT_ROOT = {{request.script_root | tojson | safe}};
 
 
-console.log("value changed!" + $SCRIPT_ROOT);
-//console.log(sl);
-$("#fundHouse").change(function() {
+            console.log("value changed!" + $SCRIPT_ROOT);
+            //console.log(sl);
+            $("#fundHouse").change(function() {
 
-	var $dropdown = $(this);
-	
-	  $.getJSON($SCRIPT_ROOT + '/_get_schemes', {
-        f: $('select[name="fundHouse"]').val(),
-        //b: $('input[name="b"]').val()
-      }, function(data) {
-        //$("#result").text(data.result);
-		//console.log(data.result);
-		var vals = data.result.split(",");
-		console.log(parseInt(vals.length));
-		var $secondChoice = $("#schemeList");
-		$secondChoice.empty();
-			for(i=0;i<parseInt(vals.length);i++){
-				$secondChoice.append("<option>" + vals[i].replace('"','').replace('"','').replace('[','').replace(']','') + "</option>");
-			}				
-      });
-      
-	
+                var $dropdown = $(this);
 
-	//console.log(x.responseText);
-});
+                $.getJSON($SCRIPT_ROOT + '/_get_schemes', {
+                    f: $('select[name="fundHouse"]').val(),
+                    //b: $('input[name="b"]').val()
+                }, function(data) {
+                    //$("#result").text(data.result);
+                    //console.log(data.result);
+                    var vals = data.result.split(",");
+                    console.log(parseInt(vals.length));
+                    var $secondChoice = $("#schemeList");
+                    $secondChoice.empty();
+                    for (i = 0; i < parseInt(vals.length); i++) {
+                        $secondChoice.append("<option>" + vals[i].replace('"', '').replace('"', '').replace('[', '').replace(']', '') + "</option>");
+                    }
+                });
 
-//loadSchemes();
-})
-</script>
+
+
+                //console.log(x.responseText);
+            });
+
+            //loadSchemes();
+        })
+    </script>
 </head>
- 
+
 <body>
- 
+
     <div class="container">
         <div class="header">
             <nav>
@@ -67,55 +73,60 @@ $("#fundHouse").change(function() {
             </nav>
             <h3 class="text-muted">Python Flask App</h3>
         </div>
- 
+
         <div class="jumbotron">
             <h1>navTracker App</h1>
             <p class="lead"></p>
             <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
             </p>
         </div>
- 
+
         <div class="row marketing">
             <div class="col-lg-6">
-			<form class="form-inline" method="POST" action="{{ url_for('test') }}">
-			
-                <h4>Select Funds</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-				<select name="fundHouse" id ="fundHouse" width="300px" class="selectpicker form-control">
-					{% for o in fundHouse['FundHouse'] %}
-					<option value="{{ o }}">{{ o }}</option>
-					{% endfor %}
-				</select>
-				<select name="option" id="schemeList" width="300px" class="selectpicker form-control">
-					<option>Select a Scheme...</option>
-				</select>
-				<button type="submit" class="btn btn-default">Go</button>
-				</form>
+                <form class="form-inline" method="POST" action="{{ url_for('test') }}">
+
+                    <h4>Select Funds</h4>
+                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                    <select name="fundHouse" id="fundHouse" width="300px" class="selectpicker form-control">
+					   {% for o in fundHouse['FundHouse'] %}
+					   <option value="{{ o }}">{{ o }}</option>
+					   {% endfor %}
+				    </select>
+
+                    <select name="option" id="schemeList" width="300px" class="selectpicker form-control">
+					   <option>Select a Scheme...</option>
+				    </select>
+
+                <p>Staring Date: <input type="text" id="datepicker1" class="form-control"></p>
+
+                <p>Ending Date: <input type="text" id="datepicker2" class="form-control"></p>
+
+                <button type="submit" class="btn btn-default">Go</button>
+                </form>
                 <h4>Bucket List</h4>
                 <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
- 
+
                 <h4>Bucket List</h4>
                 <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
             </div>
- 
+
             <div class="col-lg-6">
                 <h4>Bucket List</h4>
                 <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
- 
+
                 <h4>Bucket List</h4>
                 <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
- 
+
                 <h4>Bucket List</h4>
                 <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
             </div>
         </div>
- 
+
         <footer class="footer">
             <p>&copy; Company 2015</p>
         </footer>
- 
+
     </div>
 </body>
- 
+
 </html>
- 
