@@ -15,9 +15,9 @@ def startServer():
 		httpd.serve_forever()
 		
 '''
-db='cleanedCSV.csv'
-schemes='fundDB.csv'
-amfiCode='mfCode.csv'
+db='./data/cleanedCSV.csv'
+schemes='./data/fundDB.csv'
+amfiCode='./data/mfCode.csv'
 schemeDB='./static/test.json'
 
 def startServer():
