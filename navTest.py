@@ -10,6 +10,10 @@ import csv
 
 phantomjsExe="C:/Users/608619925/Downloads/phantomjs-2.1.1-windows/phantomjs-2.1.1-windows/bin/phantomjs.exe"
 url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf=22&frmdt=01-Apr-2015&todt=30-Apr-2017"
+frmdt="01-Apr-2015"
+todt="30-Apr-2015"
+mf=22
+url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+mf+"&frmdt="+frmdt+"&todt="+todt
 
 driver = webdriver.PhantomJS(executable_path=phantomjsExe) # or add to your PATH
 #driver.set_window_size(1024, 768) # optional
@@ -21,7 +25,7 @@ data=preTextEl.text.split(";")
 #sbtn = driver.find_element_by_css_selector('button.gbqfba')
 #sbtn.click()
 #csvFile = open('example.csv', 'w', newline='')
-op_file="cleanedCSV.csv"
+op_file="./data/cleanedCSV.csv"
 
 tqdm.pandas(tqdm,mininterval=1)
 
