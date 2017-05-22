@@ -13,7 +13,7 @@ url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf=22&frmdt=01
 frmdt="01-Apr-2015"
 todt="30-Apr-2015"
 mf=22
-url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+mf+"&frmdt="+frmdt+"&todt="+todt
+url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+str(mf)+"&frmdt="+frmdt+"&todt="+todt
 
 driver = webdriver.PhantomJS(executable_path=phantomjsExe) # or add to your PATH
 #driver.set_window_size(1024, 768) # optional
