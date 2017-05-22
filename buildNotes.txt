@@ -1,0 +1,6 @@
+
+seektable.com
+this website let the user host large data which is free to use so I can simply upload the nav data
+here and load the data with some basic sql or mongo api to my web app that'll reduce client
+side processing dependancy and imporve performance
+
