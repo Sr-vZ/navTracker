@@ -13,9 +13,9 @@ url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf=22&frmdt=01
 frmdt="01-Apr-2015"
 todt="30-Apr-2015"
 mf=22
-url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+str(mf)+"&frmdt="+frmdt+"&todt="+todt
+urlStr="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+str(mf)+"&frmdt="+frmdt+"&todt="+todt
 
-def fetchNav(url=url):
+def fetchNav(url):
     driver = webdriver.PhantomJS(executable_path=phantomjsExe) # or add to your PATH
     #driver.set_window_size(1024, 768) # optional
     driver.get(url)
@@ -60,4 +60,4 @@ with open(my_file_name, 'r', newline='') as infile, open(cleaned_file, 'w',newli
     
 #writer.close
 #print (len(data)
-fetchNav(url=url)
+fetchNav(url=urlStr)
