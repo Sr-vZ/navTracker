@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 
     <script charset="utf-8" type="text/javascript">
-	
+	var x,label,nav;
         $('document').ready(function() {
             $("#datepicker1").datepicker({ dateFormat: 'dd-M-yy' });
             $("#datepicker2").datepicker({ dateFormat: 'dd-M-yy' });
@@ -51,13 +51,17 @@
             });
 
             //loadSchemes();
-			getNav();
+			//getNav();
+			$('#navBtn').bind('click',function(e) {
+				e.preventDefault();
+				getNav();
+			});
         })
 
         function getNav() {
 
            //$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
-            $('#navBtn').bind('click',function() {
+            //$('#navBtn').bind('click',function() {
                 $.getJSON($SCRIPT_ROOT + '/_show_nav', {
                     fH: $('#fundHouse').val(),
 					sch:$('#schemeList').val(),
@@ -65,11 +69,46 @@
 					ed: $('#datepicker2').val()
                     //b: $('input[name="b"]').val()
                 }, function(data) {
-					console.log(data.result);
+					//console.log(data.res)
+					x=JSON.parse(data.result)
+					label=[];
+					nav=[];
+					console.log(x[0]["Net Asset Value"]);
+					for(i=0;i<x.length;i++){
+						label[i]=x[i].Date;
+						nav[i]=x[i]["Net Asset Value"];
+					}
+					console.log(nav);
+					drawGraph(nav,label);
                 });
-            });
+            //});
 
         }
+		function drawGraph(navData,labelData){
+					var data = {
+								labels: labelData,
+								datasets: [
+											{
+												label: "Net Asset Value",
+												borderColor: "rgba(75,192,192,1)",
+												fill: false,
+												data: navData,
+												spanGaps: false,
+											}
+										 ]
+								};
+					var options = {
+									responsive: true,
+									maintainAspectRatio: true
+								  }
+					var ctx = document.getElementById("myChart");
+					var myLineChart = new Chart(ctx, {
+					type: 'line',
+					data: data,
+					options: options
+					});
+					myLineChart.update();
+		}
     </script>
 </head>
 
@@ -102,17 +141,17 @@
                 <!--<form class="form-inline" method="POST" action="{{ url_for('test') }}">-->
                 <form class="form-inline">
                     <h4>Select Funds</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                    <p>Enter the Fund details to obtain the Net Asset Values</p>
                     <select name="fundHouse" id="fundHouse" width="300px" class="selectpicker form-control">
 					   {% for o in fundHouse['FundHouse'] %}
 					   <option value="{{ o }}">{{ o }}</option>
 					   {% endfor %}
 				    </select>
-
+					</br>
                     <select name="option" id="schemeList" width="300px" class="selectpicker form-control">
 					   <option>Select a Scheme...</option>
 				    </select>
-
+					</br>
                     <p>Staring Date: <input type="text" id="datepicker1" class="form-control"></p>
 
                     <p>Ending Date: <input type="text" id="datepicker2" class="form-control"></p>
@@ -120,22 +159,13 @@
                     <!--<button type="submit" class="btn btn-default" id="navBtn">Go</button>-->
 					<button class="btn btn-default" id="navBtn">Go</button>
                 </form>
-                <h4>Bucket List</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-                <h4>Bucket List</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+				<div id="chartWrapper" style="overflow-x:scroll">
+					<canvas id="myChart" width="800" height="400"></canvas>
+                </div>
             </div>
 
             <div class="col-lg-6">
-                <h4>Bucket List</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                <h4>Bucket List</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-                <h4>Bucket List</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                
             </div>
         </div>
 
