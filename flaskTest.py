@@ -5,7 +5,7 @@ import socketserver
 from flask import Flask, render_template, request, url_for, jsonify
 import pandas as pd
 import os, json
-import navTest
+from navTest import fetchNav
 
 '''
 PORT = 8000
@@ -57,12 +57,18 @@ def get_schemes():
 def show_nav():
 	df = pd.read_csv(amfiCode)
 	fH = request.args.get('fH', 0, type=str)
-	sch=request.args.get('sch', 0, type=str)
-	sd=request.args.get('sd', 0, type=str)
-	ed=request.args.get('ed', 0, type=str)
+	sch = request.args.get('sch', 0, type=str)
+	sd = request.args.get('sd', 0, type=str)
+	ed = request.args.get('ed', 0, type=str)
 	#b = request.args.get('b', 0, type=int)
-	x=df[df['FundHouse']==fH]
-	return jsonify(result=x['fundName'].to_json(orient='records'))
+	x = df[df['FundHouse']==fH]
+	mf = ''.join(x['AMFI_No'])
+	#print (mf,sch,sd,ed)
+	urlStr="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+mf+"&frmdt="+sd+"&todt="+ed
+	fetchNav(url=urlStr)
+	df=pd.read_csv(db)
+	
+	return jsonify(result=x['AMFI_No'].to_json(orient='records'))
 
 @app.route("/test" , methods=['GET', 'POST'])
 def test():
