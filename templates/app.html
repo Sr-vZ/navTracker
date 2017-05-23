@@ -17,8 +17,8 @@
     <script charset="utf-8" type="text/javascript">
 	
         $('document').ready(function() {
-            $("#datepicker1").datepicker();
-            $("#datepicker2").datepicker();
+            $("#datepicker1").datepicker({ dateFormat: 'dd-M-yy' });
+            $("#datepicker2").datepicker({ dateFormat: 'dd-M-yy' });
             //$("#datepicker2").datepicker();
 			$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
             
@@ -65,7 +65,7 @@
 					ed: $('#datepicker2').val()
                     //b: $('input[name="b"]').val()
                 }, function(data) {
-
+					console.log(data.result);
                 });
             });
 
