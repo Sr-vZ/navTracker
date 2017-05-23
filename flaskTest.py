@@ -69,6 +69,7 @@ def show_nav():
 	df=pd.read_csv(db)
 	x=df[df['Scheme Name']==sch]
 	return jsonify(result=x.to_json(orient='records'))
+	#return jsonify(result=x)
 
 @app.route("/test" , methods=['GET', 'POST'])
 def test():
