@@ -62,13 +62,13 @@ def show_nav():
 	ed = request.args.get('ed', 0, type=str)
 	#b = request.args.get('b', 0, type=int)
 	x = df[df['FundHouse']==fH]
-	mf = ''.join(x['AMFI_No'])
+	mf = df.loc[df['FundHouse']==fH,'AMFI_No'].values[0]
 	#print (mf,sch,sd,ed)
-	urlStr="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+mf+"&frmdt="+sd+"&todt="+ed
+	urlStr="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+str(mf)+"&frmdt="+sd+"&todt="+ed
 	fetchNav(url=urlStr)
 	df=pd.read_csv(db)
-	
-	return jsonify(result=x['AMFI_No'].to_json(orient='records'))
+	x=df[df['Scheme Name']==sch]
+	return jsonify(result=x.to_json(orient='records'))
 
 @app.route("/test" , methods=['GET', 'POST'])
 def test():
