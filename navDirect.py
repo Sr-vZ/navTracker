@@ -10,9 +10,9 @@ import csv
 
 phantomjsExe="C:/Users/608619925/Downloads/phantomjs-2.1.1-windows/phantomjs-2.1.1-windows/bin/phantomjs.exe"
 url="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf=22&frmdt=01-Apr-2015&todt=30-Apr-2017"
-frmdt="01-Apr-2015"
-todt="30-Apr-2015"
-mf=22
+frmdt="01-Apr-2016"
+todt="30-Apr-2016"
+mf=9
 urlStr="http://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?mf="+str(mf)+"&frmdt="+frmdt+"&todt="+todt
 phantomjsExe='./phantomJS/phantomjs.exe'
 def fetchNav(url):
@@ -24,7 +24,7 @@ def fetchNav(url):
     headers['User-Agent'] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
     req = urllib.request.Request(url, headers = headers)
     resp = urllib.request.urlopen(req)
-    respData = resp.read()
+    respData = resp.read().decode('utf-8')
     #x = urllib.request.urlopen(url)
     #data=preTextEl.text.split(";")
     #print (preTextEl.text)
