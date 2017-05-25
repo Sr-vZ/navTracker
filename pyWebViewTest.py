@@ -4,13 +4,10 @@ import http.server
 import socketserver
 from flask import Flask, render_template, request, url_for, jsonify
 import pandas as pd
-<<<<<<< HEAD
-import os, json, sys
-from navTest import fetchNav
-=======
+
 import os, json
 from navDirect import fetchNav
->>>>>>> 382610117fbd045922fa972968c13dfd3ebaccfe
+
 
 '''
 PORT = 8000
