@@ -1,8 +1,8 @@
-from selenium import webdriver
+#from selenium import webdriver
 from tqdm import tqdm
 import pandas as pd
 from io import StringIO
-from tqdm import tqdm
+#from tqdm import tqdm
 import urllib.request
 import os
 
@@ -40,7 +40,7 @@ def fetchNav(url):
     #df.drop('Repurchase Price',axis=1)
     df.drop('Sale Price',axis=1)
     df.to_csv(op_file,index=False)
-    driver.close
+    #driver.close
 
     #df.plot()
 '''
