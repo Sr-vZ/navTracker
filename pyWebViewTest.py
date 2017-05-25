@@ -4,7 +4,7 @@ import http.server
 import socketserver
 from flask import Flask, render_template, request, url_for, jsonify
 import pandas as pd
-import os, json
+import os, json, sys
 from navTest import fetchNav
 
 '''
