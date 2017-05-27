@@ -1,6 +1,5 @@
 import webview
 import threading
-import http.server
 import socketserver
 from flask import Flask, render_template, request, url_for, jsonify
 import pandas as pd
