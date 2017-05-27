@@ -3,7 +3,7 @@ from tqdm import tqdm
 import pandas as pd
 from io import StringIO
 #from tqdm import tqdm
-import urllib.request
+import urllib
 import os
 
 import csv
