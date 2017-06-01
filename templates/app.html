@@ -9,20 +9,28 @@
 
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="loader.css">
+    <link rel="stylesheet" href="loader.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 
     <script charset="utf-8" type="text/javascript">
-	var x,label,nav;
+        var x, label, nav;
         $('document').ready(function() {
-            $("#datepicker1").datepicker({ dateFormat: 'dd-M-yy' });
-            $("#datepicker2").datepicker({ dateFormat: 'dd-M-yy' });
+            $("#datepicker1").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
+            $("#datepicker2").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
             //$("#datepicker2").datepicker();
-			$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
-            
+            $SCRIPT_ROOT = {
+                {
+                    request.script_root | tojson | safe
+                }
+            };
+
 
 
             console.log("value changed!" + $SCRIPT_ROOT);
@@ -42,7 +50,8 @@
                     var $secondChoice = $("#schemeList");
                     $secondChoice.empty();
                     for (i = 0; i < parseInt(vals.length); i++) {
-                        $secondChoice.append("<option>" + vals[i].replace('"', '').replace('"', '').replace('[', '').replace(']', '') + "</option>");
+                        $secondChoice.append("<option>" + vals[i].replace('"', '').replace('"',
+                            '').replace('[', '').replace(']', '') + "</option>");
                     }
                 });
 
@@ -52,78 +61,77 @@
             });
 
             //loadSchemes();
-			//getNav();
-			$('#navBtn').bind('click',function(e) {
-				e.preventDefault();
-				getNav();
-			});
-			
-		})
+            //getNav();
+            $('#navBtn').bind('click', function(e) {
+                e.preventDefault();
+                getNav();
+            });
+
+        });
 
         function getNav() {
-			$("cssload-thecube").show();
-           //$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
+            $("cssload-thecube").show();
+            //$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
             //$('#navBtn').bind('click',function() {
-                $.getJSON($SCRIPT_ROOT + '/_show_nav', {
-                    fH: $('#fundHouse').val(),
-					sch:$('#schemeList').val(),
-					sd: $('#datepicker1').val(),
-					ed: $('#datepicker2').val()
+            $.getJSON($SCRIPT_ROOT + '/_show_nav', {
+                fH: $('#fundHouse').val(),
+                sch: $('#schemeList').val(),
+                sd: $('#datepicker1').val(),
+                ed: $('#datepicker2').val()
                     //b: $('input[name="b"]').val()
-                }, function(data) {
-					//console.log(data.res)
-					x=JSON.parse(data.result)
-					label=[];
-					nav=[];
-					console.log(x[0]["Net Asset Value"]);
-					for(i=0;i<x.length;i++){
-						label[i]=x[i].Date;
-						nav[i]=x[i]["Net Asset Value"];
-					}
-					console.log(nav);
-					drawGraph(nav,label);
-					$("cssload-thecube").hide();
-                });
+            }, function(data) {
+                //console.log(data.res)
+                x = JSON.parse(data.result)
+                label = [];
+                nav = [];
+                console.log(x[0]["Net Asset Value"]);
+                for (i = 0; i < x.length; i++) {
+                    label[i] = x[i].Date;
+                    nav[i] = x[i]["Net Asset Value"];
+                }
+                console.log(nav);
+                drawGraph(nav, label);
+                $("cssload-thecube").hide();
+            });
             //});
 
         }
-		function drawGraph(navData,labelData){
-					var data = {
-								labels: labelData,
-								datasets: [
-											{
-												label: "Net Asset Value",
-												borderColor: "rgba(75,192,192,1)",
-												fill: false,
-												data: navData,
-												spanGaps: false,
-											}
-										 ]
-								};
-					var options = {
-									responsive: true,
-									maintainAspectRatio: true
-								  }
-					var ctx = document.getElementById("myChart");
-					var myLineChart = new Chart(ctx, {
-					type: 'line',
-					data: data,
-					options: options
-					});
-					myLineChart.update();
-		}
+
+        function drawGraph(navData, labelData) {
+            var data = {
+                labels: labelData,
+                datasets: [{
+                    label: "Net Asset Value",
+                    borderColor: "rgba(75,192,192,1)",
+                    fill: false,
+                    data: navData,
+                    spanGaps: false,
+                }]
+            };
+            var options = {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+            var ctx = document.getElementById("myChart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+            myLineChart.update();
+        }
     </script>
 </head>
 
 <body>
 
     <div class="container">
-		<div class="cssload-thecube">
-			<div class="cssload-cube cssload-c1"></div>
-			<div class="cssload-cube cssload-c2"></div>
-			<div class="cssload-cube cssload-c4"></div>
-			<div class="cssload-cube cssload-c3"></div>
-		</div>
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
@@ -156,27 +164,27 @@
 					   <option value="{{ o }}">{{ o }}</option>
 					   {% endfor %}
 				    </select>
-					</br>
+                    </br>
                     <select name="option" id="schemeList" width="300px" class="selectpicker form-control">
 					   <option>Select a Scheme...</option>
 				    </select>
-										
-					</br>
+
+                    </br>
                     <p>Staring Date: <input type="text" id="datepicker1" class="form-control"></p>
 
                     <p>Ending Date: <input type="text" id="datepicker2" class="form-control"></p>
 
                     <!--<button type="submit" class="btn btn-default" id="navBtn">Go</button>-->
-					<button class="btn btn-default" id="navBtn">Go</button>
+                    <button class="btn btn-default" id="navBtn">Go</button>
                 </form>
-				<div id="chartWrapper" style="overflow-x:scroll">
-					<div id="summary"></div>
-					<canvas id="myChart" width="800" height="400"></canvas>
+                <div id="chartWrapper" style="overflow-x:scroll">
+                    <div id="summary"></div>
+                    <canvas id="myChart" width="800" height="400"></canvas>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                
+
             </div>
         </div>
 
